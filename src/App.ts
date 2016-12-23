@@ -1,30 +1,29 @@
-import * as express from 'express';
+import * as express from "express";
+import * as path from "path";
 
 // Creates and configures an ExpressJS web server.
 export class App {
 
-  public express: express.Application;
+  public ex: express.Application;
 
   // Create the express instance and run configuration methods
   constructor(port: number|string|boolean) {
-    this.express = express();
+    this.ex = express();
+    console.log(path.join(__dirname, "..", "public"));
+    console.log("Hello");
+    this.ex.use(express.static(path.join(__dirname, "..", "public")));
     this.setRoutes();
     this.startServer(port);
   }
 
-  // Assign routes to functions
+  // Assign routes
   private setRoutes() {
-    this.express.get("/", this.renderHelloWorld);
   }
 
   // Set a port and start the server
   private startServer(port: number|string|boolean) {
-    this.express.listen(port, function() {
+    this.ex.listen(port, function() {
       console.log("Listening on port " + port);
     });
-  }
-
-  private renderHelloWorld(req: express.Request, res: express.Response) {
-    res.send("Hello there world!");
   }
 }

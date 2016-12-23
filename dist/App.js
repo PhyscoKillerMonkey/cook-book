@@ -1,25 +1,25 @@
 "use strict";
-var express = require('express');
+var express = require("express");
+var path = require("path");
 // Creates and configures an ExpressJS web server.
 var App = (function () {
     // Create the express instance and run configuration methods
     function App(port) {
-        this.express = express();
+        this.ex = express();
+        console.log(path.join(__dirname, "..", "public"));
+        console.log("Hello");
+        this.ex.use(express.static(path.join(__dirname, "..", "public")));
         this.setRoutes();
         this.startServer(port);
     }
-    // Assign routes to functions
+    // Assign routes
     App.prototype.setRoutes = function () {
-        this.express.get("/", this.renderHelloWorld);
     };
     // Set a port and start the server
     App.prototype.startServer = function (port) {
-        this.express.listen(port, function () {
+        this.ex.listen(port, function () {
             console.log("Listening on port " + port);
         });
-    };
-    App.prototype.renderHelloWorld = function (req, res) {
-        res.send("Hello there world!");
     };
     return App;
 }());
