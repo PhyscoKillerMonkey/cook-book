@@ -3,3 +3,10 @@ extends layout
 block content
   h1= title
   h2 Ingredients
+  ul
+    each ingredient in ingredients
+      li= ingredient
+  h2 Method
+  ol
+    each step in method
+      li= step

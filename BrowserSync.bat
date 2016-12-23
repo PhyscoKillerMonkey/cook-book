@@ -8,4 +8,4 @@ goto :EOF
 :minimized
 
 cls
-browser-sync start --files "**/*, !**/*.gitignore" --proxy "http://localhost:1337/"
+browser-sync start --files "**/*, !**/*.gitignore, !**/*.ts" --proxy "http://localhost:1337/"
