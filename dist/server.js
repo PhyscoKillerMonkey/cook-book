@@ -1,7 +1,5 @@
 "use strict";
-var debug = require("debug");
 var App_1 = require("./App");
-debug("ts-express:server");
 // Get a port from the environment or use default
 var port = normalizePort(process.env.PORT || 1337);
 // Create the server, passing in the port

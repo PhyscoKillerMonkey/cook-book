@@ -19,7 +19,7 @@ var App = (function () {
         });
     };
     App.prototype.renderHelloWorld = function (req, res) {
-        res.send("Hello World!");
+        res.send("Hello there world!");
     };
     return App;
 }());

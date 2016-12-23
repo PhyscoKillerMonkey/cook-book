@@ -1,9 +1,7 @@
 import * as http from "http";
-import * as debug from "debug";
 
 import {App} from "./App";
 
-debug("ts-express:server");
 
 // Get a port from the environment or use default
 const port = normalizePort(process.env.PORT || 1337);
