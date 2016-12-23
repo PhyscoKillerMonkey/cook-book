@@ -6,7 +6,7 @@ import {App} from "./App";
 debug("ts-express:server");
 
 // Get a port from the environment or use default
-const port = normalizePort(process.env.PORT || 8080);
+const port = normalizePort(process.env.PORT || 1337);
 
 // Create the server, passing in the port
 const app = new App(port); 

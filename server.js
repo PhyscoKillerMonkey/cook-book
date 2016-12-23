@@ -3,7 +3,7 @@ var debug = require("debug");
 var App_1 = require("./App");
 debug("ts-express:server");
 // Get a port from the environment or use default
-var port = normalizePort(process.env.PORT || 8080);
+var port = normalizePort(process.env.PORT || 1337);
 // Create the server, passing in the port
 var app = new App_1.App(port);
 function normalizePort(val) {
