@@ -1,16 +1,6 @@
 extends layout
 
-block content
-  header.default-primary-color
-    i.material-icons.md-light menu
-    div Recipes
-    spacer
-    i.material-icons.md-light refresh
-    i.material-icons.md-light more_vert
+block head
+  link(rel="stylesheet", href="/styles/recipe.css")
 
-  content
-    each recipe in recipes
-      .recipe-card(style="background-image: url("+recipe.imageURL+")")
-        .card-title
-          .recipe-name= recipe.title
-          .recipe-author #{recipe.author} - #{recipe.time}
+block content

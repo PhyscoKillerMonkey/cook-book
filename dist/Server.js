@@ -1,6 +1,7 @@
 "use strict";
 var express = require("express");
 var path = require("path");
+var recipes = require(path.join(__dirname, "recipes.json"));
 // Creates and configures an ExpressJS web server.
 var Server = (function () {
     // Create the express instance and run configuration methods
@@ -25,22 +26,8 @@ var Server = (function () {
         this.app.get("/", this.homePage);
     };
     Server.prototype.homePage = function (req, res) {
-        res.render("recipe", {
-            "recipes": [
-                {
-                    "title": "Pesto Bruchetta",
-                    "author": "Peter Carlsson",
-                    "time": "35 mins",
-                    "imageURL": "images/pestoBruchetta.png"
-                },
-                {
-                    "title": "Chicken Tostadas",
-                    "author": "Sandra Adams",
-                    "time": "50 mins",
-                    "imageURL": "images/chickenTostadas.png"
-                }
-            ]
-        });
+        console.log(recipes);
+        res.render("homepage", { "recipes": recipes });
     };
     return Server;
 }());

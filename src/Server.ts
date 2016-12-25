@@ -1,6 +1,8 @@
 import * as express from "express";
 import * as path from "path";
 
+const recipes = require(path.join(__dirname, "recipes.json"));
+
 // Creates and configures an ExpressJS web server.
 export class Server {
 
@@ -33,22 +35,8 @@ export class Server {
   }
 
   private homePage(req: express.Request, res: express.Response) {
-   res.render("recipe", {
-     "recipes": [
-       {
-         "title": "Pesto Bruchetta",
-         "author": "Peter Carlsson",
-         "time": "35 mins",
-         "imageURL": "images/pestoBruchetta.png"
-       },
-       {
-         "title": "Chicken Tostadas",
-         "author": "Sandra Adams",
-         "time": "50 mins",
-         "imageURL": "images/chickenTostadas.png"
-       }
-     ]
-   });
+    console.log(recipes);
+    res.render("homepage", {"recipes": recipes});
   }
 }
 
