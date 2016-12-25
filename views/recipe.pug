@@ -1,5 +1,15 @@
 extends layout
 
 block content
-  h1= title
-  h2 Ingredients
+  header.default-primary-color
+    i.material-icons.md-light menu
+    div Recipes
+    spacer
+    i.material-icons.md-light refresh
+    i.material-icons.md-light more_vert
+
+  content
+    .recipe-card
+      .card-title
+        .recipe-name Pesto Bruchetta
+        .recipe-author Peter Carlsson - 35 mins
