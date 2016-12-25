@@ -23,7 +23,8 @@ var Server = (function () {
     };
     // Assign routes
     Server.prototype.setRoutes = function () {
-        this.app.get("/", this.recipePage);
+        this.app.get("/", this.homePage);
+        this.app.get("/r", this.recipePage);
     };
     Server.prototype.homePage = function (req, res) {
         res.render("homepage", { "recipes": recipes });

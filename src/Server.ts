@@ -31,7 +31,8 @@ export class Server {
 
   // Assign routes
   private setRoutes() {
-    this.app.get("/", this.recipePage);
+    this.app.get("/", this.homePage);
+    this.app.get("/r", this.recipePage);
   }
 
   private homePage(req: express.Request, res: express.Response) {
