@@ -33,26 +33,41 @@ export class Server {
   }
 
   private homePage(req: express.Request, res: express.Response) {
-   res.render("recipe", { 
-      title: "Millie's Cookies",
-      ingredients: [
-        "125g butter, softened",
-        "100g light brown soft sugar",
-        "125g caster sugar",
-        "1 egg, lightly beaten", 
-        "1 tsp vanilla extract",
-        "225g self-raising flour",
-        "1/2 tsp salt",
-        "200g chocolate chips"
-      ],
-      method: [
-        "Preheat the oven to 180C, gas mark 4.",
-        "Cream butter and sugars, once creamed, combine in the egg and vanilla.",
-        "Sift in the flour and salt, then the chocolate chips.",
-        "Roll into walnut size balls, for a more homemake look, or roll into a long, thick sausage shape and slic to make neater lookig cookies.",
-        "Place on ungreased baking paper. If you want to have the real Millies experience then bake for just 7 minutes, till the cookies are just setting - the cookies will be really doughy and delicous. Otherwise cook for 10 minutes until just golden round the edges.",
-        "Take out of the oven and leave to harden for a minute before transferring to a wire cooling rack. There are great warm, and they also store well, if they don't all get eaten straight away!"
-      ]
-    });
+   res.render("recipe", {
+     "recipes": [
+       {
+         "title": "Pesto Bruchetta",
+         "author": "Peter Carlsson",
+         "time": "35 mins",
+         "imageURL": "images/pestoBruchetta.png"
+       },
+       {
+         "title": "Chicken Tostadas",
+         "author": "Sandra Adams",
+         "time": "50 mins",
+         "imageURL": "images/chickenTostadas.png"
+       }
+     ]
+   });
   }
 }
+
+// title: "Millie's Cookies",
+//       ingredients: [
+//         "125g butter, softened",
+//         "100g light brown soft sugar",
+//         "125g caster sugar",
+//         "1 egg, lightly beaten", 
+//         "1 tsp vanilla extract",
+//         "225g self-raising flour",
+//         "1/2 tsp salt",
+//         "200g chocolate chips"
+//       ],
+//       method: [
+//         "Preheat the oven to 180C, gas mark 4.",
+//         "Cream butter and sugars, once creamed, combine in the egg and vanilla.",
+//         "Sift in the flour and salt, then the chocolate chips.",
+//         "Roll into walnut size balls, for a more homemake look, or roll into a long, thick sausage shape and slic to make neater lookig cookies.",
+//         "Place on ungreased baking paper. If you want to have the real Millies experience then bake for just 7 minutes, till the cookies are just setting - the cookies will be really doughy and delicous. Otherwise cook for 10 minutes until just golden round the edges.",
+//         "Take out of the oven and leave to harden for a minute before transferring to a wire cooling rack. There are great warm, and they also store well, if they don't all get eaten straight away!"
+//       ]
