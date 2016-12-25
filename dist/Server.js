@@ -23,11 +23,13 @@ var Server = (function () {
     };
     // Assign routes
     Server.prototype.setRoutes = function () {
-        this.app.get("/", this.homePage);
+        this.app.get("/", this.recipePage);
     };
     Server.prototype.homePage = function (req, res) {
-        console.log(recipes);
         res.render("homepage", { "recipes": recipes });
+    };
+    Server.prototype.recipePage = function (req, res) {
+        res.render("recipe", { "recipe": recipes[0] });
     };
     return Server;
 }());

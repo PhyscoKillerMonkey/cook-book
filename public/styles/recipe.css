@@ -1,0 +1,15 @@
+.background {
+  width: 100%;
+  height: auto;
+  position: absolute;
+  top: 0;
+}
+
+.page {
+  width: 100%;
+  max-width: 600px;
+  height: 600px;
+  margin-top: 240px;
+  background: red;
+  z-index: 10;
+}

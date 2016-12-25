@@ -31,12 +31,15 @@ export class Server {
 
   // Assign routes
   private setRoutes() {
-    this.app.get("/", this.homePage);
+    this.app.get("/", this.recipePage);
   }
 
   private homePage(req: express.Request, res: express.Response) {
-    console.log(recipes);
     res.render("homepage", {"recipes": recipes});
+  }
+
+  private recipePage(req: express.Request, res: express.Response) {
+    res.render("recipe", {"recipe": recipes[0]});
   }
 }
 

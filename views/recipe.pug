@@ -2,5 +2,28 @@ extends layout
 
 block head
   link(rel="stylesheet", href="/styles/recipe.css")
+  //- script.
+  //-   window.onload = function() {
+  //-     console.log("Inline JS loaded");
+  //-     var bg = document.getElementById("bg");
+  //-     window.onresize = function() {
+  //-       console.log(bg.offsetHeight);
+  //-       if (bg.offsetHeight < 240) {
+  //-         bg.style.width = "auto";
+  //-         bg.style.height = "240px";
+  //-       } else {
+  //-         bg.style.width = "100%";
+  //-         bg.style.height = "auto";
+  //-       }
+  //-       console.log(bg.offsetHeight);
+  //-     }
+  //-   }
 
 block content
+  header
+    i.material-icons.md-light menu
+    spacer
+    i.material-icons.md-light more_vert
+  content
+    img.background#bg(src=recipe.imageURL)
+    .page
