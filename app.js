@@ -1,6 +1,4 @@
 "use strict";
-// var App_1 = require(__dirname + "/dist/App");
-
 // Dependencies
 var server = require("./dist/Server");
 var http = require("http");
