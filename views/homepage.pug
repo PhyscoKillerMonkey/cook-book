@@ -4,7 +4,7 @@ block head
   link(rel="stylesheet", href="/styles/homepage.css")
 
 block content
-  header.default-primary-color
+  header.primary-color.text-light
     i.material-icons.md-light menu
     div Recipes
     spacer
@@ -17,3 +17,6 @@ block content
         .card-title
           .recipe-name= recipe.title
           .recipe-author #{recipe.author} - #{recipe.time}
+  
+  A.fab.accent-color(href="r")
+    i.material-icons.md-light add

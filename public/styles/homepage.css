@@ -32,3 +32,9 @@ content {
 .recipe-author {
   color: #FFFFFF;
 }
+
+.fab {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+}

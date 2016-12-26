@@ -20,10 +20,18 @@ block head
   //-   }
 
 block content
-  header
-    i.material-icons.md-light menu
+  header.text-light
+    a(href="../")
+      i.material-icons.md-light arrow_back
     spacer
     i.material-icons.md-light more_vert
   content
-    img.background#bg(src=recipe.imageURL)
+    img.background(src=recipe.imageURL)
     .page
+      h1= recipe.title
+      .text-secondary #{recipe.author} - #{recipe.time}
+      p.text-secondary #{recipe.description}
+      each ingredient in recipe.ingredients
+        .ingredient
+          .amount.text-accent= ingredient.amount
+          .name= ingredient.name 
