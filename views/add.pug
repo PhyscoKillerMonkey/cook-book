@@ -1,0 +1,34 @@
+extends layout
+
+block head 
+  link(rel="stylesheet", href="/styles/add.css")
+  script.
+    function autoExpand(el) {
+      el.oninput = function() {
+        el.style.height = "auto";
+        el.style.height = (el.scrollHeight+1) + "px";
+      }
+    }
+
+block content
+  header.primary-color.text-light
+    a(href="..")
+      i.material-icons.md-light arrow_back
+    div Add Recipe
+
+  content
+    form.card(method="post")
+      input(type="text", name="title", placeholder="Title", autocomplete="off")
+      input(type="text", name="author", placeholder="Author", autocomplete="off")
+      textarea.auto-expand(name="description", rows="1", placeholder="Description", oninput="autoExpand(this)")
+      button.full-width(type="button") CHOOSE IMAGE
+      .divider
+      input(type="text", name="time", placeholder="Time taken", autocomplete="off")
+      div Ingredients
+        .ingredient
+          input(type="text", name="ingredient_name", placeholder="Name", autocomplete="off")
+          input(type="text", name="ingredient_amount", placeholder="Amount", autocomplete="off")
+      .divider
+      div Method
+        
+      button.small(type="submit") SUBMIT

@@ -1,0 +1,39 @@
+form {
+  background: #FFFFFF;
+  padding: 16px;
+  max-width: 600px;
+  margin: 64px auto 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+form > * {
+  margin: 8px 0;
+}
+
+.divider {
+  margin: 16px 0 16px -16px;
+  width: calc(100% + 32px);
+}
+
+button.small {
+  max-width: max-content;
+}
+
+.ingredient {
+  display: flex;
+}
+
+.ingredient input {
+  min-width: 60px;
+  width: 0px;
+}
+
+.ingredient>*:first-child  {
+  flex-grow: 4;
+  margin-right: 16px;
+}
+
+.ingredient>*:last-child {
+  flex-grow: 1;
+}

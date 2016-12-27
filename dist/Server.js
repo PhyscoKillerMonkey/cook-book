@@ -1,5 +1,6 @@
 "use strict";
 var express = require("express");
+var bodyParser = require("body-parser");
 var path = require("path");
 var recipes = require(path.join(__dirname, "recipes.json"));
 // Creates and configures an ExpressJS web server.
@@ -20,17 +21,29 @@ var Server = (function () {
         // Configure pug
         this.app.set("views", path.join(__dirname, "..", "views"));
         this.app.set("view engine", "pug");
+        // Configure the body-parser
+        this.app.use(bodyParser.json());
+        this.app.use(bodyParser.urlencoded({ extended: true }));
     };
     // Assign routes
     Server.prototype.setRoutes = function () {
         this.app.get("/", this.homePage);
         this.app.get("/r", this.recipePage);
+        this.app.get("/add", this.addPage);
+        this.app.post("/add", this.addPost);
     };
     Server.prototype.homePage = function (req, res) {
         res.render("homepage", { "recipes": recipes });
     };
     Server.prototype.recipePage = function (req, res) {
         res.render("recipe", { "recipe": recipes[0] });
+    };
+    Server.prototype.addPage = function (req, res) {
+        res.render("add");
+    };
+    Server.prototype.addPost = function (req, res) {
+        res.redirect("..");
+        console.log(req.body);
     };
     return Server;
 }());

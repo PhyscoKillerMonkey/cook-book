@@ -1,4 +1,5 @@
 import * as express from "express";
+import * as bodyParser from "body-parser";
 import * as path from "path";
 
 const recipes = require(path.join(__dirname, "recipes.json"));
@@ -27,12 +28,18 @@ export class Server {
     // Configure pug
     this.app.set("views", path.join(__dirname, "..", "views"));
     this.app.set("view engine", "pug");
+
+    // Configure the body-parser
+    this.app.use(bodyParser.json());
+    this.app.use(bodyParser.urlencoded({extended: true}));
   }
 
   // Assign routes
   private setRoutes() {
     this.app.get("/", this.homePage);
     this.app.get("/r", this.recipePage);
+    this.app.get("/add", this.addPage);
+    this.app.post("/add", this.addPost);
   }
 
   private homePage(req: express.Request, res: express.Response) {
@@ -41,6 +48,15 @@ export class Server {
 
   private recipePage(req: express.Request, res: express.Response) {
     res.render("recipe", {"recipe": recipes[0]});
+  }
+
+  private addPage(req: express.Request, res: express.Response) {
+    res.render("add");
+  }
+
+  private addPost(req: express.Request, res: express.Response) {
+    res.redirect("..");
+    console.log(req.body);
   }
 }
 
