@@ -20,8 +20,10 @@ button.small {
   max-width: max-content;
 }
 
-.ingredient {
+.flex-horoz {
   display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .ingredient input {
@@ -29,11 +31,17 @@ button.small {
   width: 0px;
 }
 
-.ingredient>*:first-child  {
+.ingredient>*:nth-child(2)  {
   flex-grow: 4;
   margin-right: 16px;
 }
 
-.ingredient>*:last-child {
+.ingredient>*:nth-child(3) {
+  flex-grow: 1;
+  margin-right: 8px;
+}
+
+.step>*:nth-child(2) {
+  margin-right: 8px;
   flex-grow: 1;
 }

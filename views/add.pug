@@ -24,11 +24,23 @@ block content
       button.full-width(type="button") CHOOSE IMAGE
       .divider
       input(type="text", name="time", placeholder="Time taken", autocomplete="off")
-      div Ingredients
-        .ingredient
-          input(type="text", name="ingredient_name", placeholder="Name", autocomplete="off")
-          input(type="text", name="ingredient_amount", placeholder="Amount", autocomplete="off")
+      p.subheading Ingredients
+      .ingredient.flex-horoz
+        i.material-icons.md-dark(style="margin-right: 8px") drag_handle
+        input(type="text", name="ingredient_name", placeholder="Name", autocomplete="off")
+        input(type="text", name="ingredient_amount", placeholder="Amount", autocomplete="off")
+        i.material-icons.md-dark cancel
+      .flex-horoz
+        i.material-icons.md-dark(style="margin-right: 8px") add
+        .body-1 Ingredient
       .divider
-      div Method
+      p.subheading Method
+      .step.flex-horoz
+        i.material-icons.md-dark(style="margin-right: 8px") drag_handle
+        textarea.auto-expand(name="step", rows="1", placeholder="Step 1", oninput="autoExpand(this)")
+        i.material-icons.md-dark cancel
+      .flex-horoz
+        i.material-icons.md-dark(style="margin-right: 8px") add
+        .body-1 Step
         
       button.small(type="submit") SUBMIT
