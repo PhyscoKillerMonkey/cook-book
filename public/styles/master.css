@@ -47,6 +47,9 @@ a {
   text-decoration: none;
 }
 
+.cursor-all-scroll { cursor: all-scroll; }
+.cursor-pointer { cursor: pointer; }
+
 input {
   border: none;
   border-bottom: 1px rgba(0, 0, 0, 0.2) solid;

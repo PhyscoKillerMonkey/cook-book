@@ -23,25 +23,17 @@ button.small {
 .flex-horoz {
   display: flex;
   flex-direction: row;
+  margin: 16px 0;
   align-items: center;
 }
+.flex-horoz>* { margin: 0 8px; }
+.flex-horoz>*:first-child { margin: 0 8px 0 0; }
+.flex-horoz>*:last-child { margin: 0 0 0 8px; }
 
-.ingredient input {
-  min-width: 60px;
-  width: 0px;
-}
+.list { margin: 16px 0; }
+.list input { flex-shrink: 1; }
 
-.ingredient>*:nth-child(2)  {
-  flex-grow: 4;
-  margin-right: 16px;
-}
+.ingredient>*:nth-child(2) { flex-grow: 10; width: 60px; }
+.ingredient>*:nth-child(3) { flex-grow: 0.5; width: 45px; }
 
-.ingredient>*:nth-child(3) {
-  flex-grow: 1;
-  margin-right: 8px;
-}
-
-.step>*:nth-child(2) {
-  margin-right: 8px;
-  flex-grow: 1;
-}
+.step>*:nth-child(2) { flex-grow: 1; }

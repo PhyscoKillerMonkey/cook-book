@@ -10,6 +10,60 @@ block head
       }
     }
 
+    function removeItem(el) {
+      el.parentElement.remove();
+    }
+
+    function makeListItem() {
+      var child = document.createElement("div");
+      
+      var dragHandle = document.createElement("i");
+      dragHandle.className = "material-icons md-dark cursor-all-scroll";
+      dragHandle.appendChild(document.createTextNode("drag_handle"));
+      child.appendChild(dragHandle);
+      
+      var removeButton = document.createElement("i");
+      removeButton.className = "material-icons md-dark cursor-pointer";
+      removeButton.onclick = function() { removeItem(removeButton); }
+      removeButton.appendChild(document.createTextNode("cancel"));
+      child.appendChild(removeButton);
+
+      return child;
+    }
+
+    function addIngredient() {
+      var child = makeListItem();
+      child.className = "ingredient flex-horoz list";
+      
+      var ingredient = document.createElement("input");
+      ingredient.type = "text";
+      ingredient.placeholder = "Ingredient";
+      child.insertBefore(ingredient, child.lastElementChild);
+      
+      var amount =  document.createElement("input");
+      amount.type = "text";
+      amount.placeholder = "Amount";
+      child.insertBefore(amount, child.lastElementChild);
+      
+      var i = document.getElementById("ingredients");
+      i.insertBefore(child, i.lastElementChild);
+    }
+
+    function addStep() {
+      var child = makeListItem();
+      child.className = "step flex-horoz list";
+
+      var step = document.createElement("textarea");
+      step.rows = "1";
+      step.placeholder = "Step";
+      step.oninput = "autoExpand(this)";
+      step.className = "auto-expand";
+      child.insertBefore(step, child.lastElementChild);
+
+      var m = document.getElementById("method");
+      m.insertBefore(child, m.lastElementChild);
+    }
+
 block content
   header.primary-color.text-light
     a(href="..")
@@ -22,25 +76,31 @@ block content
       input(type="text", name="author", placeholder="Author", autocomplete="off")
       textarea.auto-expand(name="description", rows="1", placeholder="Description", oninput="autoExpand(this)")
       button.full-width(type="button") CHOOSE IMAGE
+
       .divider
+
       input(type="text", name="time", placeholder="Time taken", autocomplete="off")
       p.subheading Ingredients
-      .ingredient.flex-horoz
-        i.material-icons.md-dark(style="margin-right: 8px") drag_handle
-        input(type="text", name="ingredient_name", placeholder="Name", autocomplete="off")
-        input(type="text", name="ingredient_amount", placeholder="Amount", autocomplete="off")
-        i.material-icons.md-dark cancel
-      .flex-horoz
-        i.material-icons.md-dark(style="margin-right: 8px") add
-        .body-1 Ingredient
+      #ingredients
+        .ingredient.flex-horoz.list
+          i.material-icons.md-dark.cursor-all-scroll drag_handle
+          input(type="text", placeholder="Ingredient")
+          input(type="text", placeholder="Amount")
+          i.material-icons.md-dark.cursor-pointer(onclick="removeItem(this)") cancel
+        .cursor-pointer.flex-horoz.list(onclick="addIngredient()")
+          i.material-icons.md-dark add
+          div Ingredient
+
       .divider
+
       p.subheading Method
-      .step.flex-horoz
-        i.material-icons.md-dark(style="margin-right: 8px") drag_handle
-        textarea.auto-expand(name="step", rows="1", placeholder="Step 1", oninput="autoExpand(this)")
-        i.material-icons.md-dark cancel
-      .flex-horoz
-        i.material-icons.md-dark(style="margin-right: 8px") add
-        .body-1 Step
+      #method
+        .step.flex-horoz.list
+          i.material-icons.md-dark.cursor-all-scroll drag_handle
+          textarea.auto-expand(name="step", rows="1", placeholder="Step", oninput="autoExpand(this)")
+          i.material-icons.md-dark.cursor-pointer(onclick="removeItem(this)") cancel
+        .cursor-pointer.link.flex-horoz.list(onclick="addStep()")
+          i.material-icons.md-dark add
+          .body-1 Step
         
       button.small(type="submit") SUBMIT
