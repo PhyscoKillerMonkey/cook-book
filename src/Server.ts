@@ -55,7 +55,6 @@ export class Server {
   }
 
   private addPost(req: express.Request, res: express.Response) {
-    res.redirect("..");
     console.log(req.body);
   }
 }

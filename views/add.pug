@@ -2,67 +2,7 @@ extends layout
 
 block head 
   link(rel="stylesheet", href="/styles/add.css")
-  script.
-    function autoExpand(el) {
-      el.oninput = function() {
-        el.style.height = "auto";
-        el.style.height = (el.scrollHeight+1) + "px";
-      }
-    }
-
-    function removeItem(el) {
-      el.parentElement.remove();
-    }
-
-    function makeListItem() {
-      var child = document.createElement("div");
-      
-      var dragHandle = document.createElement("i");
-      dragHandle.className = "material-icons md-dark cursor-all-scroll";
-      dragHandle.appendChild(document.createTextNode("drag_handle"));
-      child.appendChild(dragHandle);
-      
-      var removeButton = document.createElement("i");
-      removeButton.className = "material-icons md-dark cursor-pointer";
-      removeButton.onclick = function() { removeItem(removeButton); }
-      removeButton.appendChild(document.createTextNode("cancel"));
-      child.appendChild(removeButton);
-
-      return child;
-    }
-
-    function addIngredient() {
-      var child = makeListItem();
-      child.className = "ingredient flex-horoz list";
-      
-      var ingredient = document.createElement("input");
-      ingredient.type = "text";
-      ingredient.placeholder = "Ingredient";
-      child.insertBefore(ingredient, child.lastElementChild);
-      
-      var amount =  document.createElement("input");
-      amount.type = "text";
-      amount.placeholder = "Amount";
-      child.insertBefore(amount, child.lastElementChild);
-      
-      var i = document.getElementById("ingredients");
-      i.insertBefore(child, i.lastElementChild);
-    }
-
-    function addStep() {
-      var child = makeListItem();
-      child.className = "step flex-horoz list";
-
-      var step = document.createElement("textarea");
-      step.rows = "1";
-      step.placeholder = "Step";
-      step.oninput = "autoExpand(this)";
-      step.className = "auto-expand";
-      child.insertBefore(step, child.lastElementChild);
-
-      var m = document.getElementById("method");
-      m.insertBefore(child, m.lastElementChild);
-    }
+  script(src="/scripts/add.js")
 
 block content
   header.primary-color.text-light
@@ -71,15 +11,15 @@ block content
     div Add Recipe
 
   content
-    form.card(method="post")
-      input(type="text", name="title", placeholder="Title", autocomplete="off")
-      input(type="text", name="author", placeholder="Author", autocomplete="off")
-      textarea.auto-expand(name="description", rows="1", placeholder="Description", oninput="autoExpand(this)")
+    form.card(action="javascript:submit()")
+      input#title(type="text", placeholder="Title", autocomplete="off")
+      input#author(type="text", placeholder="Author", autocomplete="off")
+      textarea.auto-expand#description(rows="1", placeholder="Description", oninput="autoExpand(this)")
       button.full-width(type="button") CHOOSE IMAGE
 
       .divider
 
-      input(type="text", name="time", placeholder="Time taken", autocomplete="off")
+      input#time(type="text", placeholder="Time taken", autocomplete="off")
       p.subheading Ingredients
       #ingredients
         .ingredient.flex-horoz.list
@@ -97,7 +37,7 @@ block content
       #method
         .step.flex-horoz.list
           i.material-icons.md-dark.cursor-all-scroll drag_handle
-          textarea.auto-expand(name="step", rows="1", placeholder="Step", oninput="autoExpand(this)")
+          textarea.auto-expand(rows="1", placeholder="Step", oninput="autoExpand(this)")
           i.material-icons.md-dark.cursor-pointer(onclick="removeItem(this)") cancel
         .cursor-pointer.link.flex-horoz.list(onclick="addStep()")
           i.material-icons.md-dark add
