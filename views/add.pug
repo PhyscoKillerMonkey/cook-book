@@ -12,20 +12,23 @@ block content
 
   content
     form.card(action="javascript:submit()")
-      input#title(type="text", placeholder="Title", autocomplete="off")
-      input#author(type="text", placeholder="Author", autocomplete="off")
-      textarea.auto-expand#description(rows="1", placeholder="Description", oninput="autoExpand(this)")
+      input#title(type="text", placeholder="Title", autocomplete="off", required="true")
+      input#author(type="text", placeholder="Author", autocomplete="off", required="true")
+      textarea.auto-expand#description(rows="1", placeholder="Description", oninput="autoExpand(this)", required="true")
+      #time.flex-horoz
+        .body-1 Time Taken:
+        input(type="number", placeholder="Hours", min="0", max="99", step="1", required="true")
+        input(type="number", placeholder="Mins", min="0", max="59", step="1", required="true")
       button.full-width(type="button") CHOOSE IMAGE
 
       .divider
 
-      input#time(type="text", placeholder="Time taken", autocomplete="off")
-      p.subheading Ingredients
       #ingredients
+        .subheading Ingredients
         .ingredient.flex-horoz.list
           i.material-icons.md-dark.cursor-all-scroll drag_handle
-          input(type="text", placeholder="Ingredient")
-          input(type="text", placeholder="Amount")
+          input(type="text", placeholder="Ingredient", required="true")
+          input(type="text", placeholder="Amount", required="true")
           i.material-icons.md-dark.cursor-pointer(onclick="removeItem(this)") cancel
         .cursor-pointer.flex-horoz.list(onclick="addIngredient()")
           i.material-icons.md-dark add
@@ -33,11 +36,11 @@ block content
 
       .divider
 
-      p.subheading Method
       #method
+        .subheading Method
         .step.flex-horoz.list
           i.material-icons.md-dark.cursor-all-scroll drag_handle
-          textarea.auto-expand(rows="1", placeholder="Step", oninput="autoExpand(this)")
+          textarea.auto-expand(rows="1", placeholder="Step", oninput="autoExpand(this)", required="true")
           i.material-icons.md-dark.cursor-pointer(onclick="removeItem(this)") cancel
         .cursor-pointer.link.flex-horoz.list(onclick="addStep()")
           i.material-icons.md-dark add

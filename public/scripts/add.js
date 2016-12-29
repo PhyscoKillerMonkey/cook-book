@@ -37,11 +37,13 @@ function addIngredient() {
   var ingredient = document.createElement("input");
   ingredient.type = "text";
   ingredient.placeholder = "Ingredient";
+  ingredient.required = "true";
   child.insertBefore(ingredient, child.lastElementChild);
   
   var amount =  document.createElement("input");
   amount.type = "text";
   amount.placeholder = "Amount";
+  amount.required = "true";
   child.insertBefore(amount, child.lastElementChild);
   
   var i = byID("ingredients");
@@ -57,6 +59,7 @@ function addStep() {
   step.placeholder = "Step";
   step.oninput = "autoExpand(this)";
   step.className = "auto-expand";
+  step.required = "true";
   child.insertBefore(step, child.lastElementChild);
 
   var m = byID("method");
@@ -71,7 +74,11 @@ function submit() {
   data.title = byID("title").value;
   data.author = byID("author").value;
   data.description = byID("description").value;
-  data.time = byID("time").value;
+
+  // Convert the time into minutes
+  var times = byID("time").getElementsByTagName("input");
+  data.time = times[0].valueAsNumber * 60 + times[1].valueAsNumber;
+
   data.ingredients = []
   var ingredients = document.getElementsByClassName("ingredient");
   for (var i = 0; i < ingredients.length; i++) {
@@ -81,12 +88,14 @@ function submit() {
     ingredient.amount = inputs[1].value;
     data.ingredients.push(ingredient);
   }
+
   data.method = []
   var steps = document.getElementsByClassName("step");
   for (var i = 0; i < steps.length; i++) {
     var inputs = steps[i].getElementsByTagName("textarea");
     data.method.push(inputs[0].value);
   }
+
   console.log("Sending post with data:", data);
 
   // Construct and send the POST request ONLY ONCE
@@ -96,9 +105,9 @@ function submit() {
     xhr.open("POST", "./add", true);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.send(JSON.stringify(data));
-  }
 
-  // Redirect to the homepage (Maybe also show some confirmation that the
-  // recipe was submitted succesfully)
-  window.location.replace("..");
+     // Redirect to the homepage (Maybe also show some confirmation that the
+    // recipe was submitted succesfully)
+    window.location.replace("..");
+  }
 }
