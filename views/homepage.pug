@@ -16,7 +16,20 @@ block content
       a.recipe-card(style="background-image: url("+recipe.imageURL+")", href=recipe.link)
         .card-title
           .recipe-name= recipe.title
-          .recipe-author #{recipe.author} - #{recipe.time}
+          -
+            function parseTime(time) {
+              var parsed = "";
+              if (time >= 60 && time % 60 != 0) {
+                parsed += Math.floor(time / 60) + "h ";
+                parsed += (time % 60) + "m";
+              } else if (time % 60 == 0) {
+                parsed += time + "h";
+              } else {
+                parsed += time + "m";
+              }
+              return parsed;
+            }
+          .recipe-author #{recipe.author} - #{parseTime(recipe.time)}
   
   A.fab.accent-color(href="add")
     i.material-icons.md-light add
