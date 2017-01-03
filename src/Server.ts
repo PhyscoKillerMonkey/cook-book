@@ -9,7 +9,8 @@ const storage = multer.diskStorage({
     cb(null, path.join(__dirname, "..", "public", "images", "uploads"));
   },
   filename: function(req, file, cb) {
-    cb(null, "image-" + Date.now());
+    let n = file.originalname;
+    cb(null, "image-" + Date.now() + "." + n.slice((n.lastIndexOf(".") - 1 >>> 0) + 2));
   }
 })
 const upload = multer({ storage: storage });
