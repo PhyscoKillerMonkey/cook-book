@@ -14,7 +14,21 @@ const storage = multer.diskStorage({
 })
 const upload = multer({ storage: storage });
 
+// Create the recipes DB if it does not exist
 const recipesURL = path.join(__dirname, "recipes.json");
+try {
+  require(recipesURL);
+} catch (error) {
+  console.log("Cannot find the recipes DB at: ", recipesURL);
+  console.log("Creating new file...");
+  fs.writeFile(recipesURL, "[]", function(error: NodeJS.ErrnoException) {
+    if (error) {
+      console.log("Write error: " + error.message);
+    } else {
+      console.log("Successfully created " + recipesURL);
+    }
+  });
+}
 
 // Creates and configures an ExpressJS web server.
 export class Server {
@@ -52,8 +66,6 @@ export class Server {
     this.app.get("/r", this.recipePage);
     this.app.get("/add", this.addPage);
     this.app.post("/add", upload.single("image"), this.addPost);
-    this.app.get("/test", this.testPage);
-    this.app.post("/test", upload.single("image"), this.testPost);
   }
 
   private homePage(req: express.Request, res: express.Response) {
@@ -107,41 +119,15 @@ export class Server {
     
     // Update the database
     fs.writeFile(recipesURL, JSON.stringify(recipes, null, 2), "utf8", 
-    function(err: NodeJS.ErrnoException) {
-      console.log("Error", err);
+    function(error: NodeJS.ErrnoException) {
+      if (error) {
+        console.log("Write error: " + error.message);
+      } else {
+        console.log("Successful write to " + recipesURL);
+      }
     });
 
-    // Redirect to the same page for now (should be homepage)
-    res.redirect("./add");
-  }
-
-  private testPage(req: express.Request, res: express.Response) {
-    res.render("test");
-  }
-
-  private testPost(req: express.Request, res: express.Response) {
-    console.log(req.body);
-    console.log(req.file);
-    res.redirect("./test");
+    // Redirect to the homepage
+    res.redirect(".");
   }
 }
-
-// title: "Millie's Cookies",
-//       ingredients: [
-//         "125g butter, softened",
-//         "100g light brown soft sugar",
-//         "125g caster sugar",
-//         "1 egg, lightly beaten", 
-//         "1 tsp vanilla extract",
-//         "225g self-raising flour",
-//         "1/2 tsp salt",
-//         "200g chocolate chips"
-//       ],
-//       method: [
-//         "Preheat the oven to 180C, gas mark 4.",
-//         "Cream butter and sugars, once creamed, combine in the egg and vanilla.",
-//         "Sift in the flour and salt, then the chocolate chips.",
-//         "Roll into walnut size balls, for a more homemake look, or roll into a long, thick sausage shape and slic to make neater lookig cookies.",
-//         "Place on ungreased baking paper. If you want to have the real Millies experience then bake for just 7 minutes, till the cookies are just setting - the cookies will be really doughy and delicous. Otherwise cook for 10 minutes until just golden round the edges.",
-//         "Take out of the oven and leave to harden for a minute before transferring to a wire cooling rack. There are great warm, and they also store well, if they don't all get eaten straight away!"
-//       ]
