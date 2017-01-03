@@ -1,8 +1,20 @@
 import * as express from "express";
 import * as bodyParser from "body-parser";
 import * as path from "path";
+import * as multer from "multer";
+import * as fs from "fs";
 
-const recipes = require(path.join(__dirname, "recipes.json"));
+const storage = multer.diskStorage({
+  destination: function(req, file, cb) {
+    cb(null, path.join(__dirname, "..", "public", "images", "uploads"));
+  },
+  filename: function(req, file, cb) {
+    cb(null, "image-" + Date.now());
+  }
+})
+const upload = multer({ storage: storage });
+
+const recipesURL = path.join(__dirname, "recipes.json");
 
 // Creates and configures an ExpressJS web server.
 export class Server {
@@ -39,15 +51,17 @@ export class Server {
     this.app.get("/", this.homePage);
     this.app.get("/r", this.recipePage);
     this.app.get("/add", this.addPage);
-    this.app.post("/add", this.addPost);
+    this.app.post("/add", upload.single("image"), this.addPost);
+    this.app.get("/test", this.testPage);
+    this.app.post("/test", upload.single("image"), this.testPost);
   }
 
   private homePage(req: express.Request, res: express.Response) {
-    res.render("homepage", {"recipes": recipes});
+    res.render("homepage", {"recipes": require(recipesURL)});
   }
 
   private recipePage(req: express.Request, res: express.Response) {
-    res.render("recipe", {"recipe": recipes[0]});
+    res.render("recipe", {"recipe": require(recipesURL)[0]});
   }
 
   private addPage(req: express.Request, res: express.Response) {
@@ -56,6 +70,59 @@ export class Server {
 
   private addPost(req: express.Request, res: express.Response) {
     console.log(req.body);
+    console.log(req.file);
+    let b = req.body;
+    
+    let output = {};
+
+    for (let a of ["title", "author", "description"]) {
+      output[a] = b[a];
+    }
+    
+    output["time"] = b.hours * 60 + parseInt(b.minutes);
+    
+    output["ingredients"] = [];
+    if (typeof b.ingredient === "string") {
+      output["ingredients"].push({ "ingredient": b.ingredient, "amount": b.amount });
+    } else {
+      for (let i in b.ingredient) {
+        output["ingredients"].push({ "ingredient": b.ingredient[i], "amount": b.amount[i] });
+      }
+    }
+
+    if (typeof b.step === "string") {
+      output["method"] = [b.step];
+    } else {
+      output["method"] = b["step"];
+    }
+
+    output["imageURL"] = "images/uploads/" + req.file.filename;
+    output["link"] = "recipe/" + encodeURI(b.title);
+
+    console.log(output);
+
+    let recipes = require(recipesURL);
+    recipes.push(output);
+    console.log(recipes);
+    
+    // Update the database
+    fs.writeFile(recipesURL, JSON.stringify(recipes, null, 2), "utf8", 
+    function(err: NodeJS.ErrnoException) {
+      console.log("Error", err);
+    });
+
+    // Redirect to the same page for now (should be homepage)
+    res.redirect("./add");
+  }
+
+  private testPage(req: express.Request, res: express.Response) {
+    res.render("test");
+  }
+
+  private testPost(req: express.Request, res: express.Response) {
+    console.log(req.body);
+    console.log(req.file);
+    res.redirect("./test");
   }
 }
 

@@ -50,14 +50,14 @@ a {
 .cursor-all-scroll { cursor: all-scroll; }
 .cursor-pointer { cursor: pointer; }
 
-input {
+input[type="text"], input[type="number"] {
   border: none;
   border-bottom: 1px rgba(0, 0, 0, 0.2) solid;
   transition: all 200ms;
   padding-bottom: 0.2rem;
 }
 
-input:focus {
+input[type="text"]:focus, input[type="number"]:focus {
   outline: none;
   border-color: #FF5252;
 }

@@ -11,15 +11,15 @@ block content
     div Add Recipe
 
   content
-    form.card(action="javascript:submit()")
-      input#title(type="text", placeholder="Title", autocomplete="off", required="true")
-      input#author(type="text", placeholder="Author", autocomplete="off", required="true")
-      textarea.auto-expand#description(rows="1", placeholder="Description", oninput="autoExpand(this)", required="true")
+    form.card(method="POST", enctype="multipart/form-data")
+      input#title(type="text", name="title", placeholder="Title", autocomplete="off", required)
+      input#author(type="text", name="author", placeholder="Author", autocomplete="off", required)
+      textarea.auto-expand#description(rows="1", name="description",  placeholder="Description", oninput="autoExpand(this)", required)
       #time.flex-horoz
         .body-1 Time Taken:
-        input(type="number", placeholder="Hours", min="0", max="99", step="1", required="true")
-        input(type="number", placeholder="Mins", min="0", max="59", step="1", required="true")
-      button.full-width(type="button") CHOOSE IMAGE
+        input(type="number", name="hours", placeholder="Hours", min="0", max="99", step="1", required)
+        input(type="number", name="minutes", placeholder="Mins", min="0", max="59", step="1", required)
+      input#image(type="file", name="image", accept="image/*", required)
 
       .divider
 
@@ -27,8 +27,8 @@ block content
         .subheading Ingredients
         .ingredient.flex-horoz.list
           i.material-icons.md-dark.cursor-all-scroll drag_handle
-          input(type="text", placeholder="Ingredient", required="true")
-          input(type="text", placeholder="Amount", required="true")
+          input(type="text", name="ingredient", placeholder="Ingredient", autocomplete="off", required)
+          input(type="text", name="amount", placeholder="Amount", autocomplete="off", required)
           i.material-icons.md-dark.cursor-pointer(onclick="removeItem(this)") cancel
         .cursor-pointer.flex-horoz.list(onclick="addIngredient()")
           i.material-icons.md-dark add
@@ -40,7 +40,7 @@ block content
         .subheading Method
         .step.flex-horoz.list
           i.material-icons.md-dark.cursor-all-scroll drag_handle
-          textarea.auto-expand(rows="1", placeholder="Step", oninput="autoExpand(this)", required="true")
+          textarea.auto-expand(rows="1", name="step", placeholder="Step", oninput="autoExpand(this)", required)
           i.material-icons.md-dark.cursor-pointer(onclick="removeItem(this)") cancel
         .cursor-pointer.link.flex-horoz.list(onclick="addStep()")
           i.material-icons.md-dark add

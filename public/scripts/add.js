@@ -3,6 +3,7 @@ function byID(id) {
 }
 
 function autoExpand(el) {
+  console.log(el);
   el.oninput = function() {
     el.style.height = "auto";
     el.style.height = (el.scrollHeight+1) + "px";
@@ -36,13 +37,17 @@ function addIngredient() {
   
   var ingredient = document.createElement("input");
   ingredient.type = "text";
+  ingredient.name = "ingredient";
   ingredient.placeholder = "Ingredient";
+  ingredient.autocomplete = "off";
   ingredient.required = "true";
   child.insertBefore(ingredient, child.lastElementChild);
   
   var amount =  document.createElement("input");
   amount.type = "text";
+  amount.name = "amount";
   amount.placeholder = "Amount";
+  amount.autocomplete = "off";
   amount.required = "true";
   child.insertBefore(amount, child.lastElementChild);
   
@@ -55,10 +60,11 @@ function addStep() {
   child.className = "step flex-horoz list";
 
   var step = document.createElement("textarea");
-  step.rows = "1";
-  step.placeholder = "Step";
-  step.oninput = "autoExpand(this)";
   step.className = "auto-expand";
+  step.rows = "1";
+  step.name = "step";
+  step.placeholder = "Step";
+  step.oninput = function() { autoExpand(step); };
   step.required = "true";
   child.insertBefore(step, child.lastElementChild);
 
