@@ -10,10 +10,15 @@
 .page {
   background: white;
   max-width: 700px;
-  height: 1000px;
   margin: 240px auto 0 auto;
   padding: 24px;
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+@media (min-width: 600px) {
+  .page {
+    padding: 48px;
+  }
 }
 
 .page h1 {
@@ -22,8 +27,12 @@
   margin: 0 0 0 -2px;
 }
 
+.ingredients {
+  margin: 2em 0;
+}
+
 .ingredient {
-  margin: 0 0 8px 8px;
+  margin: 0 0 1em 0;
 }
 
 .amount {

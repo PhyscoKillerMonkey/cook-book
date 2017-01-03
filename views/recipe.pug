@@ -26,12 +26,28 @@ block content
     spacer
     i.material-icons.md-light more_vert
   content
-    img.background(src=recipe.imageURL)
+    img.background(src="../" + recipe.imageURL)
     .page
       h1= recipe.title
-      .text-secondary #{recipe.author} - #{recipe.time}
+       -
+        function parseTime(time) {
+          var parsed = "";
+          if (time >= 60 && time % 60 != 0) {
+            parsed += Math.floor(time / 60) + "h ";
+            parsed += (time % 60) + "m";
+          } else if (time % 60 == 0) {
+            parsed += time + "h";
+          } else {
+            parsed += time + "m";
+          }
+          return parsed;
+        }
+      .text-secondary #{recipe.author} - #{parseTime(recipe.time)}
       p.text-secondary #{recipe.description}
-      each ingredient in recipe.ingredients
-        .ingredient
-          .amount.text-accent= ingredient.amount
-          .name= ingredient.name 
+      .ingredients
+        each ingredient in recipe.ingredients
+          .ingredient
+            .amount.text-accent= ingredient.amount
+            .name= ingredient.name
+      each step in recipe.method
+        p= step

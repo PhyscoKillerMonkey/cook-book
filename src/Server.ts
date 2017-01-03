@@ -63,17 +63,26 @@ export class Server {
   // Assign routes
   private setRoutes() {
     this.app.get("/", this.homePage);
-    this.app.get("/r", this.recipePage);
+    this.app.get("/recipe/:title", this.recipePage);
     this.app.get("/add", this.addPage);
     this.app.post("/add", upload.single("image"), this.addPost);
   }
 
   private homePage(req: express.Request, res: express.Response) {
-    res.render("homepage", {"recipes": require(recipesURL)});
+    res.render("homepage", { "recipes": require(recipesURL) });
   }
 
   private recipePage(req: express.Request, res: express.Response) {
-    res.render("recipe", {"recipe": require(recipesURL)[0]});
+    let result = false;
+    for (let r of require(recipesURL)) {
+      if (r.title == req.params.title) {
+        res.render("recipe", { "recipe": r });
+        result = true;
+      }
+    }
+    if (!result) {
+      res.sendStatus(404);
+    }
   }
 
   private addPage(req: express.Request, res: express.Response) {
@@ -95,10 +104,10 @@ export class Server {
     
     output["ingredients"] = [];
     if (typeof b.ingredient === "string") {
-      output["ingredients"].push({ "ingredient": b.ingredient, "amount": b.amount });
+      output["ingredients"].push({ "name": b.ingredient, "amount": b.amount });
     } else {
       for (let i in b.ingredient) {
-        output["ingredients"].push({ "ingredient": b.ingredient[i], "amount": b.amount[i] });
+        output["ingredients"].push({ "name": b.ingredient[i], "amount": b.amount[i] });
       }
     }
 
