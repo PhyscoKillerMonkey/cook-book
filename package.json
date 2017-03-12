@@ -14,9 +14,9 @@
     "dev": "nodemon app.js"
   },
   "devDependencies": {
-    "@types/body-parser": "0.0.33",
+    "@types/body-parser": "^0.0.33",
     "@types/express": "^4.0.34",
-    "@types/multer": "0.0.32",
+    "@types/multer": "^0.0.32",
     "@types/node": "^6.0.53"
   }
 }
