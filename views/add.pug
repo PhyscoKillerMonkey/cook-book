@@ -5,10 +5,52 @@ block head
   script(src="/scripts/add.js")
 
 block content
-  header.primary-color.text-light
-    a(href="..")
-      i.material-icons.md-light arrow_back
-    div Add Recipe
+  .mdl-layout.mdl-js-layout.mdl-layout--fixed-header
+    header.mdl-layout__header
+      .mdl-layout__header-row
+
+        // Back button
+        a#back-button.mdl-button.mdl-js-button.mdl-button--icon(href="..")
+          i.material-icons arrow_back
+      
+        // Header title
+        span.mdl-layout-title Add Recipe
+        
+        .mdl-layout-spacer
+        
+        // Right aligned dropdown menu
+        button#menu.mdl-button.mdl-js-button.mdl-button--icon
+          i.material-icons more_vert
+        ul.mdl-menu.mdl-menu--bottom-right.mdl-js-menu.mdl-js-ripple-effect(for="menu")
+          li.mdl-menu__item Some action
+          li.mdl-menu__item Another action
+
+  main.mdl-layout__content.mdl-color--grey-100
+    form(method="POST", enctype="multipart/form-data")
+
+      .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+        input.mdl-textfield__input#title(type="text", name="title", autocomplete="off")
+        label.mdl-textfield__label(for="title") Title
+
+      .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+        input.mdl-textfield__input#author(type="text", name="author", autocomplete="off")
+        label.mdl-textfield__label(for="author") Author
+
+      .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+        textarea.mdl-textfield__input#description(type="text", rows="1", name="description")
+        label.mdl-textfield__label(for="description") Description
+
+      #time
+        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+          input.mdl-textfield__input#hours(type="number", name="hours", min="0", max="99", step="1")
+          label.mdl-textfield__label(for="hours") Hours
+
+      #time
+        .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
+          input.mdl-textfield__input#minutes(type="number", name="minutes", min="0", max="99", step="1")
+          label.mdl-textfield__label(for="hours") Minutes
+
+      input#image(type="file", name="image", accept="image/*")
 
   content
     form.card(method="POST", enctype="multipart/form-data")
