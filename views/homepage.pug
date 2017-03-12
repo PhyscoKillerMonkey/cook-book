@@ -4,32 +4,54 @@ block head
   link(rel="stylesheet", href="/styles/homepage.css")
 
 block content
-  header.primary-color.text-light
-    i.material-icons.md-light menu
-    div Recipes
-    spacer
-    i.material-icons.md-light refresh
-    i.material-icons.md-light more_vert
+  .mdl-layout.mdl-js-layout.mdl-layout--fixed-header
+    header.mdl-layout__header
+      .mdl-layout__header-row
+      
+        // Header title
+        span.mdl-layout-title Home
+        
+        .mdl-layout-spacer
+        
+        // Reload button
+        button#refresh-button.mdl-button.mdl-js-button.mdl-button--icon
+          i.material-icons refresh
+        
+        // Right aligned dropdown menu
+        button#menu.mdl-button.mdl-js-button.mdl-button--icon
+          i.material-icons more_vert
+        ul.mdl-menu.mdl-menu--bottom-right.mdl-js-menu.mdl-js-ripple-effect(for="menu")
+          li.mdl-menu__item Some action
+          li.mdl-menu__item Another action
+        
+        
+    .mdl-layout__drawer
+      span.mdl-layout-title Home
+      nav.mdl-navigation
+        a.mdl-navigation__link(href="#") Nav link 1
+        a.mdl-navigation__link(href="#") Nav link 2
 
-  content
-    each recipe in recipes
-      a.recipe-card(style="background-image: url("+recipe.imageURL+")", href=recipe.link)
-        .card-title
-          .recipe-name= recipe.title
-          -
-            function parseTime(time) {
-              var parsed = "";
-              if (time >= 60 && time % 60 != 0) {
-                parsed += Math.floor(time / 60) + "h ";
-                parsed += (time % 60) + "m";
-              } else if (time % 60 == 0) {
-                parsed += time + "h";
-              } else {
-                parsed += time + "m";
-              }
-              return parsed;
-            }
-          .recipe-author #{recipe.author} - #{parseTime(recipe.time)}
-  
-  A.fab.accent-color(href="add")
-    i.material-icons.md-light add
+    main.mdl-layout__content.mdl-color--grey-100
+      .mdl-grid
+        each recipe in recipes
+          a.mdl-card.mdl-cell.mdl-cell--4-col(style="background-image: url(" + recipe.imageURL + ")", href=recipe.link)
+            .mdl-card__title.mdl-card--expand
+            .mdl-card__actions
+              .text
+                .title= recipe.title
+                -
+                  function parseTime(time) {
+                    var parsed = "";
+                    if (time >= 60 && time % 60 != 0) {
+                      parsed += Math.floor(time / 60) + "h ";
+                      parsed += (time % 60) + "m";
+                    } else if (time % 60 == 0) {
+                      parsed += time + "h";
+                    } else {
+                      parsed += time + "m";
+                    }
+                    return parsed;
+                  }
+                .author #{recipe.author} - #{parseTime(recipe.time)}
+              .mdl-layout-spacer
+              i.material-icons favorite_border
