@@ -45,12 +45,20 @@ block content
           input.mdl-textfield__input#hours(type="number", name="hours", min="0", max="99", step="1")
           label.mdl-textfield__label(for="hours") Hours
 
-      #time
+          
         .mdl-textfield.mdl-js-textfield.mdl-textfield--floating-label
           input.mdl-textfield__input#minutes(type="number", name="minutes", min="0", max="99", step="1")
           label.mdl-textfield__label(for="hours") Minutes
 
       input#image(type="file", name="image", accept="image/*")
+
+      #ingredients
+        h5 Ingredients
+        .ingredient.flex-horoz.list
+          i.material-icons drag_handle
+          .mdl-textfield-mdl-js-textfield.mdl-textfield--floating-label
+            input.mdl-textfield__input#ingredient1(type="text", name="ingredient", autocomplete="off")
+            label.mdl-textfield__label(for="ingredient1") 
 
   content
     form.card(method="POST", enctype="multipart/form-data")
